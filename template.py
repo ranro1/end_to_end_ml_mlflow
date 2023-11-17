@@ -15,7 +15,7 @@ project_name = "mlProject"
 
 # list of files and folders to be created
 list_of_files = [
-    ".github/workflows/.gitkeep",
+    ".github/workflows/.gitkeep", # GitHub doesn't except empty folders, so an empty file in it.
     f"src/{project_name}/__init__.py",
     f"src/{project_name}/components/__init__.py",
     f"src/{project_name}/utils/__init__.py",
