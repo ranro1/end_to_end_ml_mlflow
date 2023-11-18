@@ -1,0 +1,7 @@
+artifacts_root: artifacts # root folder to hold the data and data ingestion artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://github.com/ranro1/data/raw/main/winequality-data.zip # URL to donwload the data
+  local_data_file: artifacts/data_ingestion/data.zip # the downloaded data will be saved here
+  unzip_dir: artifacts/data_ingestion
