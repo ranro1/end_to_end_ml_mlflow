@@ -5,3 +5,10 @@ data_ingestion:
   source_URL: https://github.com/ranro1/data/raw/main/winequality-data.zip # URL to donwload the data
   local_data_file: artifacts/data_ingestion/data.zip # the downloaded data will be saved here
   unzip_dir: artifacts/data_ingestion
+
+
+data_validation:
+  root_dir: artifacts/data_validation
+  unzip_data_dir: artifacts/data_ingestion/winequality-red.csv
+  STATUS_FILE: artifacts/data_validation/status.txt # Shows wheather the data format is correct or not.
+                                                    # If true, we are able to start the training process.
