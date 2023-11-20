@@ -35,15 +35,6 @@ class DataTranformationTrainingPipeline:
         except Exception as e:
             print(e)
 
-
-       
-       
-        except Exception as e:
-           raise e
-
-        
-    
-
     
 if __name__ == '__main__':
     try:

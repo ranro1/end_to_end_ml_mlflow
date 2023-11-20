@@ -6,7 +6,10 @@
 
 from mlProject.constants import *
 from mlProject.utils.common import read_yaml, create_dirs
-from mlProject.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
+from mlProject.entity.config_entity import (DataIngestionConfig, 
+                                            DataValidationConfig,
+                                            DataTransformationConfig,
+                                            ModelTrainerConfig)
 
 class ConfigurationManager:
     """
@@ -51,6 +54,16 @@ class ConfigurationManager:
     
 
     def get_data_validation_config(self) -> DataValidationConfig:
+        """
+        Get data validation configurations.
+
+        Args:
+            None
+        
+        Returns: 
+            DataValidationConfig object that contains the configs from config.yaml
+
+        """
         config = self.config.data_validation
         schema = self.schema.COLUMNS
 
@@ -67,6 +80,18 @@ class ConfigurationManager:
     
 
     def get_data_transformation_config(self) -> DataTransformationConfig:
+        """ 
+        Get data transformation configurations.
+
+        Args:
+            None
+        
+        Returns: 
+            DataTransformationConfig object that contains the configs from config.yaml
+
+        
+        """
+        
         config = self.config.data_transformation
 
         create_dirs([config.root_dir])
@@ -77,4 +102,35 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        """ 
+        Get model trainer configurations.
+
+        Args:
+            None
+        
+        Returns: 
+            ModelTrainerConfig object that contains the configs from config.yaml
+
+        
+        """
+        config = self.config.model_trainer
+        params = self.params.ElasticNet
+        taget = self.schema.TARGET_COLUMN
+
+        create_dirs([config.root_dir])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir = config.root_dir,
+            train_data_path = config.train_data_path,
+            test_data_path = config.test_data_path,
+            model_name = config.model_name,
+            alpha = params.alpha,
+            l1 = params.l1,
+            target_column = taget.name
+        )
+
+        return model_trainer_config
     
