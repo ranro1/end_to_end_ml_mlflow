@@ -1,8 +1,9 @@
-###########################################################
+#################################################################
 # data_ingestion.py:
 # Contains a class called DataIngestion that represents
-# a data ingestion object, which deals with data.
-###########################################################
+# a data ingestion object, which deals with data downloading
+# and extracting.
+#################################################################
 
 
 import os

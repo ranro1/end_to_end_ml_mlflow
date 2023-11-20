@@ -23,3 +23,9 @@ class DataValidationConfig:
     STATUS_FILE: str
     unzip_data_dir: Path
     all_schema: dict # not in config.yaml, will be ingested with shcema.yaml
+
+# Data transformation configuration
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    root_dir: Path
+    data_path: Path
