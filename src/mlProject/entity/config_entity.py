@@ -40,3 +40,14 @@ class ModelTrainerConfig:
     alpha: float # from parameter.yaml
     l1: float # from parameter.yaml
     target_column: str # from schema.yaml
+
+# Model evaluation configuration
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    test_data_path: Path
+    model_path: Path
+    all_params: dict # from params.yaml
+    metric_file_name: Path # from config.yaml
+    target_column: str 
+    mlflow_uri: str # hard-coded in constructor

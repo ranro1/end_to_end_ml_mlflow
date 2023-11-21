@@ -1,7 +1,7 @@
 ###########################################################
 # model_trainer.py:
 # Contains a class called ModelTrainer that represents
-# a model trainer object, which traines a model on data# 
+# a model trainer object, which traines a model on data
 ###########################################################
 
 import pandas as pd

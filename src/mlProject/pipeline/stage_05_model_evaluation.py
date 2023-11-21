@@ -1,15 +1,15 @@
 ###################################################
-# stage_04_model_trainer.py:
-# Model training pipeline
+# stage_05_model_evaluation.py:
+# Model evalutaion pipeline
 ###################################################
 from mlProject.config.configuration import ConfigurationManager
-from mlProject.components.model_trainer import ModelTrainer
+from mlProject.components.model_evaluation import ModelEvaluation
 from mlProject import logger
 from pathlib import Path
 
-STAGE_NAME = "04 Model Training"
+STAGE_NAME = "05 Model Training"
 
-class ModelTrainerPipeline:
+class ModelEvaluationPipeline:
     """
     Class that represents and performs data transformation pipeline.
     """
@@ -18,15 +18,14 @@ class ModelTrainerPipeline:
 
     def main(self):
             config = ConfigurationManager()
-            model_trainer_config = config.get_model_trainer_config()
-            model_trainer_config = ModelTrainer(config=model_trainer_config)
-            model_trainer_config.train()
-
+            model_evaluation_config = config.get_model_evaluation_config()
+            model_evaluation_config = ModelEvaluation(config=model_evaluation_config)
+            model_evaluation_config.log_to_mlflow()
 
 if __name__ == '__main__':
     try:
         logger.info(f">>>>>> Stage: {STAGE_NAME} has started <<<<<<")
-        obj = ModelTrainerPipeline()
+        obj = ModelEvaluationPipeline()
         obj.main()
         logger.info(f">>>>>> Stage: {STAGE_NAME} has finished <<<<<<")
     except Exception as e:

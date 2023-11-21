@@ -9,7 +9,8 @@ from mlProject.utils.common import read_yaml, create_dirs
 from mlProject.entity.config_entity import (DataIngestionConfig, 
                                             DataValidationConfig,
                                             DataTransformationConfig,
-                                            ModelTrainerConfig)
+                                            ModelTrainerConfig,
+                                            ModelEvaluationConfig)
 
 class ConfigurationManager:
     """
@@ -113,8 +114,6 @@ class ConfigurationManager:
         
         Returns: 
             ModelTrainerConfig object that contains the configs from config.yaml
-
-        
         """
         config = self.config.model_trainer
         params = self.params.ElasticNet
@@ -133,4 +132,33 @@ class ConfigurationManager:
         )
 
         return model_trainer_config
+    
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        """ 
+        Get model evaluation configurations.
+
+        Args:
+            None
+        
+        Returns: 
+            ModelEvaluationConfig object that contains the configs from config.yaml
+        """
+        config = self.config.model_evaluation
+        params = self.params.ElasticNet
+        target = self.schema.TARGET_COLUMN
+
+        create_dirs([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir=config.root_dir,
+            test_data_path=config.test_data_path,
+            model_path=config.model_path,
+            all_params=params,
+            metric_file_name=config.metric_file_name,
+            target_column=target.name,
+            mlflow_uri="https://dagshub.com/ranro3/end_to_end_ml_mlflow.mlflow"
+        )
+
+        return model_evaluation_config
     
