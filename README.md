@@ -1,11 +1,16 @@
 # End-to-End ML Project
-This project demonstrates the process of deploying an ML model to production. The model predicts wine quality according to some given parameters. The deployment is done with GitHub actions as CI/CD and AWS EC2 as the deployment environment. The web app is done with Flask.
-Below is a preview of both the home page and the prediction page.
+This project demonstrates the process of deploying an ML model to production. The model predicts wine quality according to some given parameters. Tools and technologies used:
+- CI/CD is done with GitHub actions
+- Docker image is stored in AWS ECR
+- The deployment environment used is AWS EC2
+- The web app is done with Flask
+- MLFlow is used to track experiments.
+
+Below is a preview of both the home page and the prediction page:
 
 
 ## How to Run?
-### Steps:
-### Step 1: Clone and create CONDA virtual environment.
+### Step 1: Clone and create a CONDA virtual environment.
 From now on, run the commands below in CMD/Powershell opened from the repo folder in your File Explorer. 
 ```bash
 conda create -n end_to_end_ml_proj python=3.9 -y
@@ -26,14 +31,15 @@ python app.py
 ```
 
 ### Step 4: Open Localhost and Port
-This project is defined to run with 8080 port. That can be changes in `app.py`
+This project is defined to run with port '8080', which can be changed in `app.py`
 Usually:
 ```bash
 localhost:8000 or http://127.0.0.1:8080/
 ```
 
+## Miscellenious
 ### MLFLOW
-##### from cmd:
+Run in cmd:
 - mlflow ui
 
 ### dagshub
@@ -45,7 +51,7 @@ MLFLOW_TRACKING_PASSWORD=4841ebe9c6cccbf89d4e5c07339d949acf33652e \
 python script.py
 
 
-To set as environement variables, run the following on windows command (must be run inside the virtual environement):
+To set as environment variables, run the following on Windows command (must be run inside the virtual environment):
 ```bash
 $env:MLFLOW_TRACKING_URI = 'https://dagshub.com/ranro3/end_to_end_ml_mlflow.mlflow'
 
