@@ -49,9 +49,9 @@ Run in cmd: ```mlflow ui```
 
 ### Dagshub [dagshub](https://dagshub.com/)
 Used to integrate MLFlow with the project. Dagshub connects to the git repository and MLFlow. To define the connection, open a new repository and gather the following information:
-	* MLFLOW_TRACKING_URI = 
-	* MLFLOW_TRACKING_USERNAME =
-	* MLFLOW_TRACKING_PASSWORD = 
+- MLFLOW_TRACKING_URI = 
+- MLFLOW_TRACKING_USERNAME =
+- MLFLOW_TRACKING_PASSWORD = 
 
 Set these variables as environment variables and run the following on Windows command (must be run inside the virtual environment):
 ```bash
