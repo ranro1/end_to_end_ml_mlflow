@@ -1,0 +1,133 @@
+NOTE: Before deploying, make sure that in app.py the comman app.run doesn't note "debug=True"
+
+Steps for deployment and creating CI/CD pipeline:
+
+0. Create IAM user for the project (optional):
+    In AWS we need to create a new IAM user. We can also use an existing user, depends on the task and the permissions. 
+    These are the policies we need to make sure that the user has:
+    - AccessEC2ContainerRegistryFullAccess
+    - AmazonEC2FullAccess
+
+    After crating the user, under "Security Credentials" tab we need to get access keys.
+    From there, click on "Create Access Key" and the Use Case is "CLI".
+    Now, save the keys somewhere.
+    - Access key
+    - Secret access key
+
+
+
+1. Create ECR reposiory to store Docker image.
+    On AWS, go to ECR service, and create a new repository. Keep it private and provide a name.
+
+
+
+2. Creating EC2 machine.
+    EC2 enables us to load a Docker image for web access.
+    On EC2 service, clikc on "Launch Instance". Provide a name and choose ubuntu as the OS.
+    Under Instance Type, choose the most fit machine for the application.
+
+    (optional)
+    Key pair will enables us to access the machine from a third party.
+    Now, if there is no Key Pair selected or predefined, simply create a new key pair. Provide a name, type should be RSA and file format is .pem.
+    If there is already a key pair initialized, just use that.
+
+    Make sure to enable:
+    - Allow SSH traffic from <in general, we can use "Anywhere" here>
+    - Allow HTTPS traffic from the internet
+    - Allow HTTP traffic from the internet
+    For configuration storage, 32GB should be enough, depending on the project.
+
+    Click on Launch Instance.
+
+    Under Instances, we will see our newly machine, make sure it's "running". Click on the Instance ID and "Connect".
+    Choose "Connect using EC2 Instance Connect" and click connect.
+    Now a terminal will open, this is the EC2 machine.
+
+    Under Security tab, click on Secirity Groups. Here, click on Edit Inbound Rules -> add rule:
+    Type: Custom TCP ---- Port range: <the port defined in app.py in app.run command. In these example: 8080> ---- Source: Custom, 0.0.0.0/0
+    Save the rule.
+
+
+
+3. Installing Docker on EC2 machine
+    Run these commands one by one:
+
+        # optional
+        sudo apt-get update -y
+
+        sudo apt-get upgrade # if a windows pops up about services to be retarted,
+                            # just press Enter and skip it.
+
+        #required
+
+        curl -fsSL https://get.docker.com -o get-docker.sh
+
+        sudo sh get-docker.sh
+
+        sudo usermod -aG docker ubuntu
+
+        newgrp docker
+
+    To verify that Docker has successfully installed on the machine, simply run the following command in the EC2 terminal:
+        docker --version
+
+
+
+4. Configure EC2 as self-hosted runner
+     In general, whenever we push code into main branch, it will automatically trigger the deployment process.
+    In the GitHub repository go to Settings -> Action -> Runners.
+    Then click on "New Self-Hosted Runner" and select Linux.
+    From there run the commands under Download and Configue in the EC2 terminal.
+    The first block of codes will download the neccesary packages.
+    The second block will configure the runner to be connected to the current GitHub repository.
+    Some notes:
+    - When it's asking for the name of the runner group, just click Enter (default)
+    - When it's asking for the name of the runner: self-hosted
+    - Enter additional lables, just click ENTER (default)
+    - Work folder, again Enter
+
+    After the last command, we'll see  that the EC2 is now listenting for jobs.
+
+
+
+5. Setup GitHub Secrets
+    In GitHub repository -> Settings -> Secrets and Variables -> Actions.
+    Here we need to add 5 secrets NAME = SECRET:
+    
+    AWS_ACCESS_KEY_ID = <from the IAM user we created>
+
+    AWS_SECRET_ACCESS_KEY = <from the IAM user we created>
+
+    AWS_REGION = <the region of our machine>
+
+    AWS_ECR_LOGIN_URI = <from ECR, copy the Login URI of our registry WITHOUT THE REPOSITORY NAME>
+                        Example: 886266282133.dkr.ecr.eu-north-1.amazonaws.com
+
+    ECR_REPOSITORY_NAME = <the ECR registry name>
+                          Example: mlproj_winery_quality
+
+
+After pushing to main, in the GitHub repository we'll see an orange dot which indicates that an action is running.
+
+To access the application, we need to go to the EC2 machine and from the Dashboard click on "Instances (running)".
+Find the machine and click on Instance ID and copy the "Publick IPv4 address" to the browser.
+
+
+THE APPLICATION IS NOW RUNNING!
+
+
+
+To conclude the deployment steps, every push to main branch will:    
+1. Build docker image of our source code
+2. Push docker image to ECR
+3. Launch ECR
+4. Pull image from ECR to EC2
+5. Launch docker image in EC2
+
+
+
+
+
+
+
+

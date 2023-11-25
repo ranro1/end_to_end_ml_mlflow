@@ -6,6 +6,8 @@ This project demonstrates the process of deploying an ML model to production. Th
 - The web app is done with Flask
 - MLFlow is used to track experiments.
 
+NOTE: To know more about the deployment process and get detailed instructions on how to deploy on AWS EC2, please refer to insturctions.txt.
+
 Below is a preview of both the home page and the prediction page:
 ### Home Page
 ![home page](https://github.com/ranro1/end_to_end_ml_mlflow/assets/42174030/4fa75f56-0476-459e-acb0-b5b40ddaf217)
@@ -54,7 +56,7 @@ Used to integrate MLFlow with the project. Dagshub connects to the git repositor
 Set these variables as environment variables and run the following on Windows command (must be run inside the virtual environment):
 ```bash
 $env:MLFLOW_TRACKING_URI = '<from_the_information_above>'
-
+		
 $env:MLFLOW_TRACKING_USERNAME = '<from_the_information_above>'
 
 $env:MLFLOW_TRACKING_PASSWORD = '<from_the_information_above>'
