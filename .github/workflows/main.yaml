@@ -1,7 +1,7 @@
 name: workflow
 
 # Excecute when there is a change in main branch.
-# AWS EC2 will store the docker image.
+# AWS ECR will store the docker image.
 on:
   push:
     branches:
