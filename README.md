@@ -1,13 +1,12 @@
+# End-to-End ML Project
+This project demonstrates the process of deploying an ML model to production. The model predicts wine quality according to some given parameters. The deployment is done with GitHub actions as CI/CD and AWS EC2 as the deployment environment. The web app is done with Flask.
+Below is a preview of both the home page and the prediction page.
+
+
 ## How to Run?
-
 ### Steps:
-
-clone repo:
-```bash
-git clone https://github.com/ranro1/end_to_end_ml_mlflow.git
-```
-
-### Step 1: Create CONDA virtual environement and activate it. Do the commands below after opening CMD/Powershell from the repo folder in your File Explorer
+### Step 1: Clone and create CONDA virtual environment.
+From now on, run the commands below in CMD/Powershell opened from the repo folder in your File Explorer. 
 ```bash
 conda create -n end_to_end_ml_proj python=3.9 -y
 ```
@@ -16,22 +15,22 @@ conda create -n end_to_end_ml_proj python=3.9 -y
 conda activate end_to_end_ml_proj 
 ```
 
-### Step 2: install requirements.txt
+### Step 2: Install requirements.txt
 ```
 pip install -r requirements.txt
 ```
 
-### Step 3: run the app
+### Step 3: Run the App
 ```bash
 python app.py
 ```
 
-### Step 4: open up your local host and port
+### Step 4: Open Localhost and Port
+This project is defined to run with 8080 port. That can be changes in `app.py`
 Usually:
 ```bash
-localhost:8000 or http://127.0.0.1:8000/
+localhost:8000 or http://127.0.0.1:8080/
 ```
-
 
 ### MLFLOW
 ##### from cmd:
